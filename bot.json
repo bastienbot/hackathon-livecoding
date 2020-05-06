@@ -1,0 +1,40 @@
+{
+  "id": "f7306f3f-b8c9-4261-802e-6723a04c9609",
+  "name": "Hackathon_livecoding_session",
+  "description": null,
+  "default_flow": "Default",
+  "tags": [],
+  "flows": [
+    {
+      "name": "Default",
+      "description": "Default custom flow",
+      "commands": [],
+      "tags": []
+    }
+  ],
+  "files": [
+  ],
+  "functions": [
+    {
+      "name": "airtable",
+      "description": null,
+      "args": [
+        "campus=",
+        "email=",
+        "from=",
+        "idea=",
+        "photo="
+      ],
+      "import_url": null,
+      "runtime": "nodejs12.x",
+      "handler": "index.handler",
+      "environment": {
+        "API_KEY": "",
+        "API_URL": ""
+      },
+      "app_id": null,
+      "version": null
+    }
+  ],
+  "apps": []
+}

@@ -1,0 +1,68 @@
+start:
+	say "Hello, I'm here to help you sign up for the very cool Hackathon Backtothelivingroom 🔥"
+	if (userEmail) goto idea
+	goto is42
+
+is42:
+	say Question("Are you a 42 student, alumni, or an extern ?",
+		buttons=[
+			Button("42 student", accepts=["student", "duoquadra"]) as btn1,
+			Button("42 alumni", accepts=["alumni"]) as btn2,
+			Button("Extern", accepts=["outsider", "not 42"]) as btn3
+		])
+	hold
+	if (event match btn1) {
+		say "Well done for joining 42"
+		remember isFrom = "student"
+		goto campus
+	} else if (event match btn2) {
+		say "Well done for finishing 42"
+		remember isFrom = "alumni"
+		goto campus
+	} else if (event match btn3) {
+		say "Other schools are cool too :)"
+		remember isFrom = "extern"
+		goto email
+	} else {
+		say "Okay..."
+		remember isFrom = "extern"
+		goto email
+	}
+
+campus:
+	say "What's your campus ?"
+	hold
+	remember userCampus = event
+	goto email
+
+email:
+	say "What's your email address ?"
+	hold
+	if (!event.contains("@")) {
+		say "This is not a valid email address !"
+		goto email
+	}
+	remember userEmail = event
+
+idea:
+  say "Here is a great resource to come up with a cool idea !"
+  say Video("https://www.youtube.com/watch?v=0Ul4aUS1dxQ")
+  say "So what's your idea then ?"
+  hold
+  remember userIdea = event
+  goto photo
+
+photo:
+  say "Can you please send me a photo of yourself ?"
+  hold
+  remember photo = event
+  goto save
+
+save:
+	say "All good, thanks !"
+	// Note that if you'd like to edit the fields names, you would need to :
+	// - edit them on airtable
+	// - edit them in the function, index.js in the zip file
+	// - edit them below
+  do airtableResponse = Fn("airtable", campus=userCampus, email=userEmail, from=isFrom, idea=userIdea, photo=photo)
+	goto end
