@@ -43,6 +43,7 @@ email:
 		goto email
 	}
 	remember userEmail = event
+	goto idea
 
 idea:
   say "Here is a great resource to come up with a cool idea !"
